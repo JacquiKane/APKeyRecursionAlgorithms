@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="algmergesort.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Algorithms, Merge Sort</title>
+    <style>
+        .boldface {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: larger;
+        }
+        
+        .boldfaceinfo {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: lighter;
+            font-size: large;
+        }
+        
+        .boldfaceemphasis {
+            font-size: x-large;
+        }
+        
+        .imgAni {
+            border: 5px dashed goldenrod;
+            padding: 5px;
+            width: 80%;
+            height: 200px;
+        }
+        
+        .imgAniSample {
+            border: 5px dashed goldenrod;
+            padding: 5px;
+            width: 500px;
+            height: 500px;
+            float: right;
+        }
+        
+        .buttonsize {
+            width: 80%;
+        }
+        
+        .sub {
+            vertical-align: sub;
+            font-size: smaller;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-10 boldfont">
+                <h1 class="boldface">
+                    Sort items with <span class="boldfaceemphasis">Merge Sort</span> - Divide & Conquer!
+                </h1>
+                <p>Merge Sort is an algorithm that uses a divide and conquer approach. A list (array, ArrayList instance) of items is split into 2 parts, which are then spit into 2 parts, and so on until the entire list of items have been split into singletons.
+                    The singletons are then merged together to form sub-lists that are sorted. These sorted lists are merged successively to form a final, sorted list.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-10">
+                <img id="array" class="imgAni" src="images/merge0.png" alt="Merge Sort" />
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-2">
+                <section>
+                    <div>
+                        <button class=" btn btn-primary mb-3 buttonsize" data-toggle="collapse" data-target="#mergesortcode" aria-expanded="Link to class header">
+                            Code >>
+                        </button>
+                    </div>
+
+                </section>
+
+                <section>
+                    <div>
+                        <button class=" btn btn-primary mb-3 buttonsize" data-toggle="collapse" data-target="#mergesortefficiency" aria-expanded="Link to class header">
+                            Efficiency >>
+                        </button>
+                    </div>
+
+                </section>
+
+                <section>
+                    <div>
+                        <button class=" btn btn-primary mb-3 buttonsize" data-toggle="collapse" data-target="#mergesortobjects" aria-expanded="Link to class header">
+                            Objects >>
+                        </button>
+                    </div>
+
+                </section>
+
+
+            </div>
+            <div class="col-md-7">
+                <br>
+                <div id="mergesortcode" class="collapse mb-3">
+                    <h4 class="boldface">Sample Code for Merge Sort, Assuming Array Of Ints - nums</h4>
+                    <pre>
+public static void mergeSort(int[] nums, int n) {
+    if (n < 2) 
+        return;
+    int mid = n / 2;
+    int[] left = new int[mid];
+    int[] right = new int[n - mid];
+    
+    for (int i = 0; i < mid; i++) 
+        left[i] = nums[i];
+        
+    for (int i = mid; i < n; i++) 
+        right[i - mid] = nums[i];
+    // recursively sort the left and right
+    mergeSort(left, mid);
+    mergeSort(right, n - mid);
+    // Merge the sub-lists
+    merge(nums, left, right, mid, n - mid);
+}
+    
+    public static void merge(
+    int[] nums, int[] l, int[] r, int left, int right) {
+
+        int i = 0, j = 0, k = 0;
+        while (i < left && j < right) {
+            if (l[i] <= r[j]) 
+                nums[k++] = l[i++];
+            else 
+                nums[k++] = r[j++];
+            }
+        while (i < left) 
+            nums[k++] = l[i++];
+        while (j < right) 
+            nums[k++] = r[j++];
+    }  
+}
+                        
+                        
+
+                        
+                </pre>
+                </div>
+
+
+
+                <div id="mergesortefficiency" class="collapse mb-3">
+                    <br>
+                    <h4 class="boldface">How Efficient Is Merge Sort?</h4>
+                    <div id="efficiency">
+                        <p>We say <i>of the order of</i>, designated by <i>O(...)</b>, to describe the worst case in
+                                terms of comparisons.
+                                This is termed big O representation.
+
+                                The best case is described using big Omega notation, &Omega;(...).</p>
+                                <p>
+                                Merge sort is a divide and conquer algorithm. There are 3 steps,
+<ul>
+                               <li>The divide step computes the midpoint of each of the sub-arrays. Each of this step just takes O(1) time.</li>
+                               <li>The conquer step recursively sorts two subarrays of n/2 items</li>
+                               <li>The merge step merges n items</li>
+                            </ul>                  
+The order of complexity is O(nlog<span class="sub">2</span>n) for the merge sort algorithm.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="mergesortobjects" class="collapse mb-3">
+                    <br>
+                    <h4 class="boldface">How About Sorting Objects?</h4>
+                    <p>The same algorithm applies to arrays containing objects. If you have an array of
+                        SoccerPlayer objects (to be sorted based on a specific attribute)
+                        , then you would access the SoccerPlayer object's
+                        attribute and go through the steps to sort the list.
+                    </p>
+                </div>
+
+                <div>
+                    <br>
+                    <h4 class="boldfaceinfo">
+                        <ul>
+                            <li>Can you create the code corresponding to this algorithm? </li>
+                            <li>How efficient do you think the algorithm is?</li>
+                            <li> Can you use the same algorithm with objects?</li>
+                        </ul>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>
